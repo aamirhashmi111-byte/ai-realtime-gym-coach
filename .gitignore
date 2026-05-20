@@ -3,7 +3,6 @@
 __pycache__/
 *.pyc
 *.pycache
-ml_models/
 *.db
 static/AdobeClean.otf
 .streamlit/secrets.toml
