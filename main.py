@@ -43,12 +43,15 @@ def main():
         try:
             api_key = os.environ.get("GROQ_API_KEY", "").strip()
 
-            if not api_key and hasattr(st, "secrets") and "GROQ_API_KEY" in st.secrets:
-                api_key = st.secrets["GROQ_API_KEY"]
+            if not api_key:
+                try:
+                    api_key = st.secrets.get("GROQ_API_KEY", "").strip()
+                except Exception:
+                    api_key = ""
 
             if not api_key:
                 raise RuntimeError(
-                    "GROQ_API_KEY missing. Add it in .env file.")
+                    "GROQ_API_KEY missing. Add it in Render environment variables.")
 
             # ✅ Ab sahi jagah hain — raise ke baad nahi
             groq_client = Groq(api_key=api_key)
