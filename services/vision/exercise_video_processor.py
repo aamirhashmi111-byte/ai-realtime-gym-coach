@@ -200,6 +200,10 @@ class VideoProcessorClass(VideoProcessorBase):
             dtype=np.uint8
         )
 
+        h, w = image.shape[:2]
+        if w > 640:
+            image = cv2.resize(image, (640, int(h * 640 / w)))
+
         mp_image = mp.Image(
             image_format=mp.ImageFormat.SRGB,
             data=cv2.cvtColor(image, cv2.COLOR_RGB2BGR)

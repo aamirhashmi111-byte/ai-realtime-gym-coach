@@ -238,7 +238,11 @@ def main():
             video_processor_factory=VideoProcessorClass,
             rtc_configuration={"iceServers": ice_servers},
             media_stream_constraints={
-                "video": True,
+                "video": {
+                    "width": {"ideal": 640},
+                    "height": {"ideal": 480},
+                    "frameRate": {"ideal": 15, "max": 15},
+                },
                 "audio": False
             },
             async_processing=True
