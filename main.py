@@ -220,12 +220,23 @@ def main():
             unsafe_allow_html=True,
         )
     else:
+        ice_servers = [{"urls": ["stun:stun.l.google.com:19302"]}]
+        turn_url = os.environ.get("TURN_URL", "").strip()
+        turn_username = os.environ.get("TURN_USERNAME", "").strip()
+        turn_credential = os.environ.get("TURN_CREDENTIAL", "").strip()
+
+        if turn_url and turn_username and turn_credential:
+            ice_servers.append({
+                "urls": [turn_url],
+                "username": turn_username,
+                "credential": turn_credential,
+            })
+
         context = webrtc_streamer(
             key="exercise-analysis",
             mode=WebRtcMode.SENDRECV,
             video_processor_factory=VideoProcessorClass,
-            rtc_configuration={"iceServers": [
-                {"urls": ["stun:stun.l.google.com:19302"]}]},
+            rtc_configuration={"iceServers": ice_servers},
             media_stream_constraints={
                 "video": True,
                 "audio": False
