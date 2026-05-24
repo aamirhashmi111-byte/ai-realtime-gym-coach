@@ -22,7 +22,7 @@ class VideoProcessorClass(VideoProcessorBase):
         self._exercise_type = "Squats"
 
         model_path = os.path.join(
-            os.getcwd(), "ml_models", "pose_landmarker_full.task")
+            os.getcwd(), "ml_models", "pose_landmarker_lite.task")
 
         if not os.path.exists(model_path) or os.path.getsize(model_path) == 0:
             raise FileNotFoundError(
@@ -81,7 +81,7 @@ class VideoProcessorClass(VideoProcessorBase):
                     (int(p1.x * w), int(p1.y * h)),
                     (int(p2.x * w), int(p2.y * h)),
                     (0, 255, 0),
-                    8
+                    3
                 )
 
         for lm in landmarks:
@@ -89,7 +89,7 @@ class VideoProcessorClass(VideoProcessorBase):
                 cv2.circle(
                     img,
                     (int(lm.x * w), int(lm.y * h)),
-                    8,
+                    4,
                     (255, 0, 0),
                     -1
                 )
@@ -201,8 +201,8 @@ class VideoProcessorClass(VideoProcessorBase):
         )
 
         h, w = image.shape[:2]
-        if w > 640:
-            image = cv2.resize(image, (640, int(h * 640 / w)))
+        if w > 320:
+            image = cv2.resize(image, (320, int(h * 320 / w)))
 
         mp_image = mp.Image(
             image_format=mp.ImageFormat.SRGB,

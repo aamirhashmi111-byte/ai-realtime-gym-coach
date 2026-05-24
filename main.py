@@ -239,9 +239,9 @@ def main():
             rtc_configuration={"iceServers": ice_servers},
             media_stream_constraints={
                 "video": {
-                    "width": {"ideal": 640},
-                    "height": {"ideal": 480},
-                    "frameRate": {"ideal": 15, "max": 15},
+                    "width": {"ideal": 320},
+                    "height": {"ideal": 240},
+                    "frameRate": {"ideal": 12, "max": 12},
                 },
                 "audio": False
             },
